@@ -88,7 +88,7 @@ public class BsonEncoder {
 		if(type.isBean()){
 			if(isModel){
 				BsonModel model = (BsonModel)document;
-				bson.writeBytes(new byte[BsonModel.Info.LENGTH]);
+				//bson.writeBytes(new byte[BsonModel.Info.LENGTH]);
 				Object id 		= model.id();
 				if(parseType(id)==BSON.DOCUMENT && Simple.class.isAssignableFrom(id.getClass())){
 					id = ((Simple)id).toSimple();
@@ -153,7 +153,7 @@ public class BsonEncoder {
 		bson.writeInt(length);
 		bson.position(ePos);
 		
-		if(isModel){
+		/*if(isModel){
 			BsonModel model = (BsonModel)document;
 			BsonModel.Info info = model.info();
 			
@@ -162,7 +162,7 @@ public class BsonEncoder {
 				model.info(info);
 			}
 			info.commit(bson.buffer());
-		}
+		}*/
 	}
 	
 	private void writeElement(byte type, String key, Object val) throws Exception {

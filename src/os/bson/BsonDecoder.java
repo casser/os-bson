@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.Set;
 
 import os.bson.binary.Binary;
-import os.bson.migration.MigrationAlgorithm;
-import os.bson.migration.MigrationFactory;
 import os.utils.Types;
 
 
@@ -27,30 +25,11 @@ public class BsonDecoder {
 		return (T) decode(document,null);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public <T> T decode( byte[] document, Class<T> type){
-		BsonModel.Info info = null;
-		if(type!=null&&BsonModel.class.isAssignableFrom(type)&&type.isAnnotationPresent(BsonModel.Entity.class)){
-			try {
-				info = new BsonModel.Info(document,type);
-				if(info.isMigratable()){
-					MigrationAlgorithm ma = MigrationFactory.createAlgorithm((Class<BsonModel>) type);
-					if(ma!=null){
-						document = ma.migrate(document, info);
-					}
-				}
-			} catch (Exception e) {
-				return decode(document,null);
-			}
-		}
 		
 		bson.writeBytes(document);
 		bson.position(0);
 		T result = (T)readDocument(BSON.DOCUMENT,type);
-		
-		if(info!=null){
-			((BsonModel)result).info(info);
-		}
 		
 		return result;
 	}
@@ -139,7 +118,7 @@ public class BsonDecoder {
 					
 					if(BsonModel.class.isAssignableFrom(clazz)){
 						BsonModel model = (BsonModel)bean;
-						bson.position(BsonModel.Info.LENGTH+4);
+						//bson.position(BsonModel.Info.LENGTH+4);
 						byte   idType   = bson.readByte();
 						String idKey  	= bson.readCString();
 						if(idKey.equals("_id")){

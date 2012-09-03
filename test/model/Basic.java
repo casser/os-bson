@@ -15,16 +15,6 @@ public class Basic implements BsonModel {
 	public void id(Object value) {
 		setId((String)value);
 	}
-	
-	private BsonModel.Info info;
-	@Override
-	public BsonModel.Info info() {
-		return info;
-	}
-	@Override
-	public void info(BsonModel.Info info) {
-		this.info = info;
-	}
 		
 	public String getId() {
 		return id;

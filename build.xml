@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="dc-bson" default="build" basedir=".">
+<project name="os-bson" default="build" basedir=".">
 	
     <path id="project.classpath">
-        <fileset dir="../dc-utils/dist">
+        <fileset dir="../os-utils/dist">
             <include name="*.jar"/>
         </fileset>
-        <fileset dir="../dc-json/dist">
+        <fileset dir="../os-json/dist">
             <include name="*.jar"/>
         </fileset>
     </path>
@@ -16,15 +16,12 @@
         <copy todir="tmp/classes">
             <fileset dir="src">
                 <include name="**/*.properties"/>
-                <include name="**/*.xml"/>
-                <include name="**/play.plugins"/>
-                <include name="**/play.static"/>
             </fileset>
         </copy>
-        <jar destfile="dist/dc-bson.jar" basedir="tmp/classes">
+        <jar destfile="dist/os-bson.jar" basedir="tmp/classes">
             <manifest>
-                <section name="Play-module">
-                    <attribute name="Specification-Title" value="dccrm"/>
+                <section name="Open Source BSON Serializer">
+                    <attribute name="Specification-Title" value="os-bson"/>
                 </section>
             </manifest>
         </jar>

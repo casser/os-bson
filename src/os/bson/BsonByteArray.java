@@ -3,8 +3,11 @@ package os.bson;
 import java.nio.charset.Charset;
 import java.security.InvalidParameterException;
 import java.util.Date;
+import java.util.UUID;
 
+import os.bson.binary.Binary;
 import os.utils.ByteArray;
+import os.utils.BytesUtil;
 
 
 public class BsonByteArray extends ByteArray{
@@ -48,6 +51,12 @@ public class BsonByteArray extends ByteArray{
 	
 	public void writeBinary(Object object) {
 		byte[] bytes;
+		if(object instanceof UUID){
+			bytes = new byte[16];
+			BytesUtil.writeLong(bytes, 0, ((UUID)object).getMostSignificantBits());
+			BytesUtil.writeLong(bytes, 8, ((UUID)object).getLeastSignificantBits());
+			object = new Binary(Binary.Type.UUID.getValue(), bytes);
+		}
 		if(object instanceof BsonBinary){
 			BsonBinary bin = (BsonBinary)object;
 			bytes = bin.getData();
