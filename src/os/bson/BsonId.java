@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import os.bson.annotations.BsonDocument;
 import os.utils.ByteArray;
 import os.utils.MD5;
 import os.utils.Types.Simple;
@@ -112,8 +113,8 @@ public class BsonId implements Simple, Comparable<BsonId> {
     	if(id==null){
     		id = MD5.hash();
     	}
-    	if(type.isAnnotationPresent(BsonModel.Entity.class)){
-    		typeByte= type.getAnnotation(BsonModel.Entity.class).model();
+    	if(type.isAnnotationPresent(BsonDocument.class)){
+    		typeByte= type.getAnnotation(BsonDocument.class).model();
     	}
     	byte[] bytes = new byte[12];
     	System.arraycopy(MD5.bytes(id), 0, bytes, 0, bytes.length);

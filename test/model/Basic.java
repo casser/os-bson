@@ -1,9 +1,9 @@
 package model;
 
 import os.bson.BsonModel;
-import os.bson.BsonModel.Entity;
+import os.bson.annotations.BsonDocument;
 
-@Entity(version=3)
+@BsonDocument(version=3)
 public class Basic implements BsonModel {
 	
 	private String id;

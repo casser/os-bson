@@ -155,7 +155,7 @@ public class BsonDecoder {
 						}
 					}
 					if(unknownProperties!=null){
-						System.out.println(unknownProperties);
+						System.out.println("Unknown Properties on <"+rType.getType()+">\n"+unknownProperties.toString());
 					}
 					result = bean;
 				}
@@ -251,6 +251,8 @@ public class BsonDecoder {
 			case BSON.STRING:
 				if(t!=null&&t.isSimple() && !t.getType().equals(String.class)){
 					return t.newInstance(bson.readString());
+				}else if(t!=null&&t.isEnum()){
+					return toEnum(bson.readString(), t);
 				}else{
 					return bson.readString();
 				}

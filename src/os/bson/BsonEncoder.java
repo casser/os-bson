@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import os.bson.annotations.BsonIgnore;
 import os.bson.binary.Binary;
 import os.utils.Types;
 import os.utils.Types.Simple;
@@ -99,7 +100,7 @@ public class BsonEncoder {
 			for(Map.Entry<String, Types.Property> entry:properties.entrySet()){
 				String key  			= (String)entry.getKey();
 				Types.Property property = entry.getValue();
-				if(!property.hasAnnotation(BsonEncodable.Ignore.class)){
+				if(!property.hasAnnotation(BsonIgnore.class)){
 					Object val 				= property.invokeGetter(document);
 					writeElement(parseType(val),key,val);
 				}
